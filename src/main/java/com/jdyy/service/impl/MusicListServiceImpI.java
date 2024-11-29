@@ -172,6 +172,39 @@ public class MusicListServiceImpI implements MusicListService {
 
 
 
+    //修改音乐歌单（未完成）
+    public Result modifyMusicList(MusicList musicList, MultipartFile coverFile){
+        Result result;
+        try {
+            musicListMapper.modifyMusicList(musicList);//插入后获取歌单id到musicList实体类中
+            musicList.setLid(musicListMapper.getLid());
+            System.out.println("#"+(musicListMapper.getLid()));
+            if (coverFile!=null){
+                Result uploadResult = upload(coverFile,musicList,1);
+                if(uploadResult.getCode()!=200){
+                    removeMusicList(musicList.getLid());
+                    musicListMapper.modifyAutoincrement(musicListMapper.getLid()-1);
+                    return uploadResult;
+                }
+                String cover = (String) uploadResult.getData();
+                musicList.setCover(cover);
+
+            }
+//            musicList.setCreateTime(new Date().toString());
+            modifyMusicList(musicList);//将文件地址存入到数据库
+//            System.out.println(musicList);
+            Map<String,Object> map = new HashMap<>();
+            map.put("musicAddMsg",musicList);//返回前端歌曲信息
+            result = Result.success(200,"添加成功",map);
+        }catch (Exception e){
+            e.printStackTrace();
+            result = Result.fail("添加失败",null);
+        }
+        return result;
+
+    }
+
+
     //修改一条歌单
     public Result modifyMusicList(MusicList musicList){
         Result result;
@@ -219,7 +252,6 @@ public class MusicListServiceImpI implements MusicListService {
                 }
                 String cover = (String) uploadResult.getData();
                 musicList.setCover(cover);
-
             }
 //            musicList.setCreateTime(new Date().toString());
             modifyMusicList(musicList);//将文件地址存入到数据库

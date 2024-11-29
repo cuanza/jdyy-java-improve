@@ -1,4 +1,4 @@
-package com.jdyy.entity;
+package com.jdyy.entity.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -7,21 +7,19 @@ import lombok.ToString;
 import java.sql.Timestamp;
 
 /**
- * @author LvXinming
- * @since 2022/10/13
- */
+ * @Author:陈镇川
+ * @QQ:1026551395
+ * @Date:2024/11/23 16:36
+ **/
 
 @Data
 @ToString
-public class User {
+public class SignInUserInfo {
     @Schema(description = "用户ID")
     private Integer uid;//用户 ID
 
     @Schema(description = "用户名")
     private String username; //用户名
-
-    @Schema(description = "用户密码")
-    private String password;//用户密码
 
     @Schema(description = "用户角色")
     private String role;//用户角色
@@ -49,5 +47,4 @@ public class User {
 
     @Schema(description = "用户邮箱")
     private String email;
-
 }

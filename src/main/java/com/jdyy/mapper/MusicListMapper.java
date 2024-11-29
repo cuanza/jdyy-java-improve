@@ -46,7 +46,7 @@ public interface MusicListMapper {
     MusicList getOneMusicList(Integer lid);
 
 
-    //修改一首音乐
+    //修改一个歌单
     void modifyMusicList(MusicList musicList);
 
     //删除一条歌单

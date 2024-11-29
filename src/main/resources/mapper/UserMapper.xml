@@ -28,9 +28,13 @@
     </select>
 
     <!--添加用户-->
-    <insert id="addUser">
-        insert into user(username, password) values (#{username},#{password});
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="uid">
+        INSERT INTO user(username, password, create_date, avatar, age, unit, gender, email)
+        VALUES(#{username}, #{password}, now(), #{avatar}, #{age}, #{unit}, #{gender}, #{email})
     </insert>
+
+
+
 
     <!--删除用户-->
     <delete id="removeUser">
@@ -41,18 +45,55 @@
     <update id="modifyUser">
         update user
         <set>
-            where
-            <if test="username!=null|uid!=''">
-                username=#{username}
+            <if test="username!=null|username!=''">
+                username=#{username},
             </if>
-            <if test="password!=null|uid!=''">
-                password=#{password}
+            <if test="password!=null|password!=''">
+                password=#{password},
+            </if>
+            <if test="role!=null|role!=''">
+                role=#{role},
+            </if>
+            <if test="avatar!=null|avatar!=''">
+                avatar=#{avatar},
+            </if>
+            <if test="age!=null|age!=''">
+                age=#{age},
+            </if>
+            <if test="unit!=null|unit!=''">
+                unit=#{unit},
+            </if>
+            <if test="gender!=null|gender!=''">
+                gender=#{gender},
+            </if>
+            <if test="email!=null|email!=''">
+                email=#{email}
             </if>
         </set>
-            and uid=#{uid};
+            where uid=#{uid};
     </update>
 
     <select id="login" resultType="com.jdyy.entity.User">
         select * from user where username=#{username} and password=#{password};
     </select>
+
+<!--    根据id查用户角色列表-->
+    <select id="getRolesById" parameterType="object" resultType="string">
+        SELECT r.name
+        FROM user u
+        JOIN user_role ur ON u.uid = ur.user_id
+        JOIN role r ON ur.role_id = r.id
+        WHERE u.uid = #{uid}
+    </select>
+    <!--    根据id查用户权限列表-->
+    <select id="getPermissionsById" parameterType="object" resultType="string">
+        SELECT p.name
+        FROM user u
+        JOIN user_permission up ON u.uid = up.user_id
+        JOIN permission p ON up.permission_id = p.id
+        WHERE u.uid = #{uid}
+    </select>
+
+
+
 </mapper>

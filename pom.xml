@@ -18,11 +18,25 @@
     </properties>
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+        <!--Hutool是一个小而全的Java工具类库，通过静态方法封装，降低相关API的学习成本，提高工作效率，
+        使Java拥有函数式语言般的优雅，让Java语言也可以“甜甜的”。-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.16</version>
+        </dependency>
+
+        <!-- spring data redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
         <!--sa-token-->
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-spring-boot-starter</artifactId>
-            <version>1.33.0</version>
+            <version>1.34.0</version>
         </dependency>
 
         <!--mybatis-plus-->
