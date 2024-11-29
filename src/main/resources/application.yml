@@ -53,3 +53,8 @@ knife4j:
     enable: false # 是否登录
     username: admin
     password: 123456
+# flask服务器
+flask:
+  server:
+    transcribe-url: http://127.0.0.1:5000/transcribe
+    note-url: http://127.0.0.1:5000/generateNote
