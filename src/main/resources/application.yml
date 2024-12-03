@@ -13,23 +13,32 @@ spring:
     multipart:
       max-file-size: 30MB #最大文件大小
       max-request-size: 40MB #最大请求大小
+  # Redis
+  redis:
+    port: 6379
+    host: localhost
+    timeout: 3000
+    password: 123456
+    database: 2
+  main:
+    #    解决升级Spring Boot2.6后,因依赖循环引用导致启动时报错的问题
+    allow-circular-references: true
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
-sa-token:
-  # token 名称 (同时也是cookie名称)
-  token-name: sa-token
-  # token 有效期，单位s 默认30天, -1代表永不过期
-  timeout: 2592000
-  # token 临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
-  activity-timeout: -1
-  # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
-  is-concurrent: true
-  # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
-  is-share: false
-  # token风格
-  token-style: uuid
-  # 是否输出操作日志
-  is-log: false
+  # sa-token配置
+  sa-token:
+    # token名称 (同时也是cookie名称)不能加横杠("-")血的教训，修bug到吐血 T_T
+    token-name: satoken
+    # token有效期，单位s 默认30天, -1代表永不过期
+    timeout: 2592000
+    # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
+    activity-timeout: -1
+    # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+    allow-concurrent-login: false
+    # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
+    is-share: false
+    # token风格
+    token-style: uuid
 
 #swagger
 springfox:
@@ -44,3 +53,8 @@ knife4j:
     enable: false # 是否登录
     username: admin
     password: 123456
+# flask服务器
+flask:
+  server:
+    transcribe-url: http://127.0.0.1:5000/transcribe
+    note-url: http://127.0.0.1:5000/generateNote

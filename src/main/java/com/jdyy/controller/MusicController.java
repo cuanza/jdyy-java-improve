@@ -1,5 +1,6 @@
 package com.jdyy.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.jdyy.commons.util.Result;
 import com.jdyy.entity.Music;
 import com.jdyy.entity.vo.Page;
@@ -33,7 +34,6 @@ public class MusicController {
     @Resource
     MusicService musicService;
 
-
     //获取所有音乐
     @ApiOperation("获取所有音乐")
     @ApiResponses({
@@ -46,6 +46,7 @@ public class MusicController {
     }
 
     //获取一首音乐
+    @SaCheckLogin
     @ApiOperation("获取一首音乐")
     @ApiImplicitParam(name = "musicId",value = "音乐ID",required = true)
     @ApiResponses({

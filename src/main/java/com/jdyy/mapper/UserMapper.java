@@ -1,8 +1,9 @@
 package com.jdyy.mapper;
 
-import com.jdyy.commons.util.Result;
 import com.jdyy.entity.User;
 import com.jdyy.entity.vo.Page;
+import com.jdyy.entity.vo.SignInUserInfo;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -29,19 +30,40 @@ public interface UserMapper {
 
     //根据Id获取所有用户
     @Select("select * from user where uid = #{uid};")
-    List<User> getUserById(Integer uid);
+    SignInUserInfo getUserById(Integer uid);
 
     //查一个用户
     User getOneUser(User user);
 
     //添加用户
-    void addUser(User user);
+    int addUser(User user);
+
+    //修改用户
+    int modifyUser(User user);
 
     //删除用户
-    void removeUser(User user);
+    int removeUser(User user);
 
     //登录
     User login(User user);
+
+    //获取当前用户的角色标识
+    List<String> getRolesById(Object uid);
+
+    //获取当前用户的权限标识
+    List<String> getPermissionsById(Object uid);
+
+
+
+    //根据注册的id插入角色
+    @Insert("insert into user_role(user_id,role_id) values(#{uid},#{rid});")
+    int insertRolesById(Integer uid,Integer rid);
+
+    //根据注册的id插入权限
+    @Insert("insert into user_permission(user_id,permission_id) values(#{uid},#{pid});")
+    int insertPermissionsById(Integer uid, Integer pid);
+
+
 
     /**
      * 为了解决添加失败后自增不连续的问题

@@ -17,8 +17,11 @@ public interface MusicListService{
     //获取所有歌单
     Result getListAll();
 
-    //添加音乐
+    //添加音歌单
     Result addMusicList(MusicList musicList, MultipartFile coverFile);
+
+    //修改音乐歌单
+    Result modifyMusicList(MusicList musicList, MultipartFile coverFile);
 
     //添加一首音乐进歌单
     Result addMusicToList(Integer lid, Integer mid);

@@ -9,6 +9,7 @@ import io.swagger.annotations.*;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
@@ -106,6 +107,9 @@ public class UserController {
         return userService.addUser(user);
     }
 
+
+
+
     //删除用户
     @ApiOperation("删除用户")
     @ApiImplicitParam(name = "uid",value = "用户ID",required = true)
@@ -137,6 +141,19 @@ public class UserController {
         return userService.login(user);
     }
 
+
+    @ApiOperation("退出登录")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "退出成功"),
+            @ApiResponse(responseCode = "500",description = "未登录状态")
+    })
+    @GetMapping("/logout")
+    public Result logout(@RequestParam String tokenValue){
+        System.out.println(tokenValue);
+        return userService.logout(tokenValue);
+    }
+
+
     //用户注册
     @ApiOperation("用户注册")
     @ApiImplicitParams({
@@ -150,7 +167,8 @@ public class UserController {
             @ApiResponse(responseCode = "500",description = "注册失败")
     })
     @PutMapping("/register")
-    public Result register(@RequestBody User user){
+    public Result register(User user,MultipartFile avatarFile){
+        System.out.println(user);
         if(user.getUsername()==null||"".equals(user.getUsername())){
             return new Result(406,"用户名不能为空");
         }else if(user.getUsername().length()<5||user.getUsername().length()>20){
@@ -162,6 +180,6 @@ public class UserController {
             return new Result(406,"密码长度必须在6-20之间");
         }
         user.setRole("user");
-        return userService.register(user);
+        return userService.register(user,avatarFile);
     }
 }
