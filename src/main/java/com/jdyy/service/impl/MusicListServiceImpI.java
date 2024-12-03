@@ -242,7 +242,7 @@ public class MusicListServiceImpI implements MusicListService {
         try {
             musicListMapper.addMusicList(musicList);//插入后获取歌单id到musicList实体类中
             musicList.setLid(musicListMapper.getLid());
-            System.out.println("#"+(musicListMapper.getLid()));
+            System.out.println("#"+(musicListMapper.getLid())+" "+musicList);
             if (coverFile!=null){
                 Result uploadResult = upload(coverFile,musicList,1);
                 if(uploadResult.getCode()!=200){
@@ -262,6 +262,7 @@ public class MusicListServiceImpI implements MusicListService {
         }catch (Exception e){
             e.printStackTrace();
             result = Result.fail("添加失败",null);
+            throw new RuntimeException();
         }
         return result;
     }
@@ -290,7 +291,7 @@ public class MusicListServiceImpI implements MusicListService {
 
         //文件后缀处理
         String fileSuffix = originFileName.substring(originFileName.lastIndexOf('.'));//文件后缀
-        String[] supportImgSuffix = {".jpg",".png"};//支持的音乐封面图片后缀
+        String[] supportImgSuffix = {".jpg",".png",".jpeg"};//支持的音乐封面图片后缀
         String[] supportAudioSuffix = {".mp3"};//支持的音频后缀
         //判断文件后缀
 

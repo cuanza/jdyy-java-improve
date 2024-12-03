@@ -44,15 +44,19 @@ public class User {
     @Schema(description = "用户单位")
     private String unit;
 
+    @Schema(description = "用户性别")
+    private String gender;
+
+    @Schema(description = "用户邮箱")
+    private String email;
+
 
     //以下字段待增加（未完工）
 //    @Schema(description = "用户昵称")
 //    private String nickname;
-//    @Schema(description = "用户性别")
-//    private String gender;
+
 //
-//    @Schema(description = "用户邮箱")
-//    private String email;
+
 //
 //    @Schema(description = "用户手机号")
 //    private String tel;

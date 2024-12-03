@@ -13,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @ToString
 public class MusicList {
-    private Integer lid;
+    private int lid;
     private String listName;
     private String cover;
     private String creator;

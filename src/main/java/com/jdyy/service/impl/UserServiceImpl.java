@@ -223,7 +223,7 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
             result = Result.fail("注册失败");
 
-            throw new RuntimeException();
+
         }finally {
             System.out.println(user.getUid());
             //如果插入成功
